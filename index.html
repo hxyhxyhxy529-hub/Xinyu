@@ -26,7 +26,7 @@
 
   body {
     font-family: 'DM Sans', sans-serif;
-    background: var(--cream);
+    background: #f3eee4;
     color: var(--text);
     font-weight: 300;
     line-height: 1.6;
@@ -48,11 +48,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: background 0.4s, backdrop-filter 0.4s;
+    transition: background 0.6s ease, backdrop-filter 0.4s;
   }
 
   nav.scrolled {
-    background: rgba(245, 240, 235, 0.85);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
   }
@@ -64,6 +63,7 @@
     letter-spacing: 0.15em;
     color: var(--brown);
     text-transform: uppercase;
+    transition: color 0.6s ease;
   }
 
   nav .nav-links {
@@ -215,7 +215,7 @@
   }
 
   .work-item {
-    border-top: 1px solid var(--cream-dark);
+    border-top: 1px solid rgba(92, 74, 58, 0.15);
     padding-top: 2rem;
   }
 
@@ -261,7 +261,7 @@
   }
 
   .work-item-link::after {
-    content: ' ↗';
+    content: ' \2197';
     font-size: 0.65rem;
   }
 
@@ -355,18 +355,6 @@
     transform: translateY(0) scale(1);
   }
 
-  .jewellery-item.gallery-reveal {
-    opacity: 0;
-    transform: translateY(40px) scale(0.95);
-    transition: opacity 0.8s cubic-bezier(0.25, 0, 0.25, 1),
-                transform 0.8s cubic-bezier(0.25, 0, 0.25, 1);
-  }
-
-  .jewellery-item.gallery-reveal.visible {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-
   .masonry-item:hover img {
     filter: brightness(1.05);
   }
@@ -387,44 +375,66 @@
 
   .masonry-item:hover .caption { opacity: 1; }
 
-  /* ── JEWELLERY GRID ── */
-  .jewellery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
+  /* ── CRAFT SECTION (replaces old jewellery grid) ── */
+  .craft-section {
+    padding: 6rem 0;
+    max-width: 100%;
+  }
+
+  .craft-section .section-label,
+  .craft-section .section-title {
+    padding: 0 3rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .craft-section .section-title {
+    margin-bottom: 3rem;
+  }
+
+  .craft-category {
+    margin-bottom: 3.5rem;
+  }
+
+  .craft-category-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    padding: 0 3rem;
+    max-width: 1200px;
+    margin: 0 auto 1.5rem;
+  }
+
+  .craft-masonry {
+    columns: 3;
+    column-gap: 1rem;
     padding: 0 3rem;
     max-width: 1200px;
     margin: 0 auto;
   }
 
-  .jewellery-item {
-    background: var(--white);
-    overflow: hidden;
+  .craft-masonry .masonry-item .caption {
+    /* Below-image caption for craft items */
     position: relative;
-  }
-
-  .jewellery-item img {
-    width: 100%;
-    display: block;
-    transition: transform 0.6s cubic-bezier(0.25, 0, 0.25, 1);
-  }
-
-  .jewellery-item:hover img {
-    filter: brightness(1.05);
-  }
-
-  .jewellery-item .caption {
-    padding: 0.8rem 1rem;
+    background: none;
+    color: var(--text-light);
+    opacity: 1;
+    padding: 0.6rem 0.2rem;
     font-size: 0.7rem;
     letter-spacing: 0.06em;
-    color: var(--text-light);
+  }
+
+  .craft-masonry .masonry-item:hover .caption {
+    opacity: 1;
   }
 
   /* ── FOOTER ── */
   footer {
     padding: 4rem 3rem;
     text-align: center;
-    border-top: 1px solid var(--cream-dark);
+    border-top: 1px solid rgba(243, 238, 228, 0.2);
   }
 
   footer .footer-name {
@@ -432,7 +442,7 @@
     font-size: 1rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--brown);
+    color: #f3eee4;
     margin-bottom: 1rem;
   }
 
@@ -447,18 +457,20 @@
     font-size: 0.7rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--text-light);
+    color: #f3eee4;
     text-decoration: none;
     transition: color 0.3s;
+    opacity: 0.75;
   }
 
-  footer .footer-links a:hover { color: var(--brown); }
+  footer .footer-links a:hover { opacity: 1; }
 
   footer .footer-note {
     margin-top: 2rem;
     font-size: 0.7rem;
-    color: var(--text-light);
+    color: #f3eee4;
     letter-spacing: 0.05em;
+    opacity: 0.6;
   }
 
   /* ── ANIMATIONS ── */
@@ -485,16 +497,20 @@
     nav .nav-links a { font-size: 0.65rem; }
     section { padding: 4rem 1.5rem; }
     .masonry { columns: 2; padding: 0 1.5rem; }
-    .jewellery-grid { padding: 0 1.5rem; }
-    .gallery-category-label { padding: 0 1.5rem; }
+    .craft-masonry { columns: 2; padding: 0 1.5rem; }
+    .gallery-category-label,
+    .craft-category-label { padding: 0 1.5rem; }
     .gallery-section .section-label,
-    .gallery-section .section-title { padding: 0 1.5rem; }
+    .gallery-section .section-title,
+    .craft-section .section-label,
+    .craft-section .section-title { padding: 0 1.5rem; }
     .embed-container iframe { height: 350px; }
     .work-item-header { flex-direction: column; }
   }
 
   @media (max-width: 480px) {
     .masonry { columns: 1; }
+    .craft-masonry { columns: 1; }
     nav .nav-links { gap: 1rem; }
     .hero h1 { letter-spacing: 0.06em; }
   }
@@ -514,21 +530,21 @@
 </nav>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" data-bg="#f3eee4">
   <div class="hero-parallax-content">
-    <p class="subtitle fade-in">Museum Studies · Material Art & Design</p>
+    <p class="subtitle fade-in">Museum Studies &middot; Material Art &amp; Design</p>
     <h1 class="fade-in fade-in-delay-1">Xinyu Han</h1>
-    <p class="tagline fade-in fade-in-delay-2">From the jeweller's bench to the museum archive, bridging material craft with cultural stewardship.</p>
+    <p class="tagline fade-in fade-in-delay-2">From the jeweller&rsquo;s bench to the museum archive, bridging material craft with cultural stewardship.</p>
   </div>
 </section>
 
 <!-- ABOUT -->
-<section id="about">
+<section id="about" data-bg="#ebd7cf">
   <p class="section-label fade-in">About</p>
   <h2 class="section-title fade-in">Maker, Researcher, Curator</h2>
   <div class="about-text fade-in">
-    <p>I am a Master of Museum Studies candidate at the University of Toronto, with a Bachelor of Design in Material Art & Design from OCAD University and a Jewellery Methods Diploma from George Brown College. My practice sits at the intersection of hands-on craftsmanship and institutional research.</p>
-    <p>With training in jewellery fabrication, gemology, film photography, ceramics, and metalworking, I bring a maker's sensibility to collections management, curatorial work, and digital museum practice. This portfolio presents selected coursework and creative work from my studies in The Digital Museum (MSL1228H), exploring how museums can harness digital tools and strategies to engage broader audiences, preserve cultural heritage, and rethink institutional narratives.</p>
+    <p>I am a Master of Museum Studies candidate at the University of Toronto, with a Bachelor of Design in Material Art &amp; Design from OCAD University and a Jewellery Methods Diploma from George Brown College. My practice sits at the intersection of hands-on craftsmanship and institutional research.</p>
+    <p>With training in jewellery fabrication, gemology, film photography, ceramics, and metalworking, I bring a maker&rsquo;s sensibility to collections management, curatorial work, and digital museum practice. This portfolio presents selected coursework and creative work from my studies in The Digital Museum (MSL1228H), exploring how museums can harness digital tools and strategies to engage broader audiences, preserve cultural heritage, and rethink institutional narratives.</p>
   </div>
   <div class="about-contact fade-in">
     <a href="mailto:hxyhxyhxy529@gmail.com">hxyhxyhxy529@gmail.com</a>
@@ -537,8 +553,8 @@
 </section>
 
 <!-- COURSEWORK -->
-<section id="coursework">
-  <p class="section-label fade-in">MSL1228H · The Digital Museum</p>
+<section id="coursework" data-bg="#e9d3bf">
+  <p class="section-label fade-in">MSL1228H &middot; The Digital Museum</p>
   <h2 class="section-title fade-in">Coursework</h2>
 
   <div class="work-grid">
@@ -616,14 +632,13 @@
   </div>
 </section>
 
-<!-- GALLERY -->
-<section id="gallery" class="gallery-section">
+<!-- GALLERY: FILM PHOTOGRAPHY -->
+<section id="gallery" class="gallery-section" data-bg="#e1c4a7">
   <p class="section-label fade-in">Selected Work</p>
   <h2 class="section-title fade-in">Gallery</h2>
 
-  <!-- Photography -->
   <div class="gallery-category">
-    <p class="gallery-category-label fade-in">Film Photography · Nikon F3 HP</p>
+    <p class="gallery-category-label fade-in">Film Photography &middot; Nikon F3 HP</p>
     <div class="masonry">
       <div class="masonry-item fade-in">
         <img src="images/images/000179910035.jpg" alt="Washington DC Metro" loading="lazy">
@@ -671,48 +686,172 @@
       </div>
     </div>
   </div>
+</section>
 
-  <!-- Jewellery & Design -->
-  <div class="gallery-category" style="margin-top: 4rem;">
-    <p class="gallery-category-label fade-in">Jewellery Design & Fabrication</p>
-    <div class="jewellery-grid">
-      <div class="jewellery-item fade-in">
-        <img src="images/images/33f76e71fb7f5028592bdc41054fa00.jpg" alt="Dragon Necklace Design" loading="lazy">
-        <div class="caption">Necklace Design, Watercolour on Kraft</div>
+<!-- CRAFT: JEWELLERY, CERAMICS, METALWORK, ETC -->
+<section id="craft" class="craft-section" data-bg="#ab8f80">
+  <p class="section-label fade-in">Material Art &amp; Design</p>
+  <h2 class="section-title fade-in">Craft &amp; Fabrication</h2>
+
+  <!-- Jewellery Design & Illustration -->
+  <div class="craft-category">
+    <p class="craft-category-label fade-in">Jewellery Design &amp; Illustration</p>
+    <div class="craft-masonry">
+      <div class="masonry-item fade-in">
+        <img src="images/images/33f76e71fb7f5028592bdc41054fa00.jpg" alt="Necklace Design, Gouache on Kraft" loading="lazy">
+        <div class="caption">Necklace Design, Gouache on Kraft</div>
       </div>
-      <div class="jewellery-item fade-in">
-        <img src="images/images/img_9683.jpg" alt="Cartier Ring Study, Watercolour" loading="lazy">
-        <div class="caption">Cartier Ring Study, Watercolour</div>
+      <div class="masonry-item fade-in">
+        <img src="images/images/img_9683.jpg" alt="Cartier Ring Study, Gouache on Black Paper" loading="lazy">
+        <div class="caption">Cartier Ring Study, Gouache on Black Paper</div>
       </div>
-      <div class="jewellery-item fade-in">
-        <img src="images/images/ring_green_blue.jpg" alt="Deconstructivist Ring" loading="lazy">
-        <div class="caption">Ring after Frank Gehry, Deconstructivism · Rhino 3D</div>
+      <div class="masonry-item fade-in">
+        <img src="images/images/ring_green_blue.jpg" alt="Ring after Frank Gehry, Deconstructivism" loading="lazy">
+        <div class="caption">Ring after Frank Gehry, Deconstructivism &middot; Rhino 3D</div>
       </div>
-      <div class="jewellery-item fade-in">
-        <img src="images/images/rhino_pendant.jpg" alt="Chinese Window Lattice Pendant Collection" loading="lazy">
-        <div class="caption">Pendant/Brooch Collection, Chinese Architectural Lattice · Rhino 3D</div>
+      <div class="masonry-item fade-in">
+        <img src="images/images/rhino_pendant.jpg" alt="Pendant/Brooch Collection, Chinese Architectural Lattice" loading="lazy">
+        <div class="caption">Pendant/Brooch Collection, Chinese Architectural Lattice &middot; Rhino 3D</div>
       </div>
-      <div class="jewellery-item fade-in">
-        <img src="images/images/screenshot.jpg" alt="Pendant Rhino Viewport" loading="lazy">
+      <div class="masonry-item fade-in">
+        <img src="images/images/screenshot.jpg" alt="Lattice Pendant, Rhino 3D Viewport" loading="lazy">
         <div class="caption">Lattice Pendant, Rhino 3D Viewport</div>
       </div>
     </div>
   </div>
+
+  <!-- Metalwork -->
+  <div class="craft-category">
+    <p class="craft-category-label fade-in">Metalwork</p>
+    <div class="craft-masonry">
+      <div class="masonry-item fade-in">
+        <img src="images/images/aluminum_toolbox.jpg" alt="Toolbox, Aluminum Fabrication" loading="lazy">
+        <div class="caption">Toolbox, Aluminum Fabrication</div>
+      </div>
+      <div class="masonry-item fade-in">
+        <img src="images/images/Croissant_ring_in_silver_and_resin_model.jpg" alt="Croissant Ring, Sterling Silver and Resin Model" loading="lazy">
+        <div class="caption">Croissant Ring, Sterling Silver and Resin Model</div>
+      </div>
+      <div class="masonry-item fade-in">
+        <img src="images/images/Lattice_earring.jpg" alt="Lattice Earrings, Sterling Silver" loading="lazy">
+        <div class="caption">Lattice Earrings, Sterling Silver</div>
+      </div>
+      <div class="masonry-item fade-in">
+        <img src="images/images/Lattice_work_grouped.jpg" alt="Lattice Collection, Sterling Silver" loading="lazy">
+        <div class="caption">Lattice Collection, Sterling Silver</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ceramics -->
+  <div class="craft-category">
+    <p class="craft-category-label fade-in">Ceramics</p>
+    <div class="craft-masonry">
+      <div class="masonry-item fade-in">
+        <img src="images/images/ceramic_mug_before_and_after_glaze.jpg" alt="Ceramic Mugs, Before and After Glaze" loading="lazy">
+        <div class="caption">Ceramic Mugs, Before and After Glaze</div>
+      </div>
+      <div class="masonry-item fade-in">
+        <img src="images/images/ceramic_sculpter_set.jpg" alt="Ceramic Sculpture, Glazed Stoneware" loading="lazy">
+        <div class="caption">Ceramic Sculpture, Glazed Stoneware</div>
+      </div>
+      <div class="masonry-item fade-in">
+        <img src="images/images/ceramic_sculptor_in_process_clay_stage.jpg" alt="Ceramic Sculpture, Clay Stage" loading="lazy">
+        <div class="caption">Ceramic Sculpture, Clay Stage</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3D Print & Digital Fabrication -->
+  <div class="craft-category">
+    <p class="craft-category-label fade-in">3D Print &amp; Digital Fabrication</p>
+    <div class="craft-masonry">
+      <div class="masonry-item fade-in">
+        <img src="images/images/3d_printed_mask_on_model.jpg" alt="3D Printed Mask, Worn" loading="lazy">
+        <div class="caption">3D Printed Mask, Worn</div>
+      </div>
+      <div class="masonry-item fade-in">
+        <img src="images/images/mask_3d_printed.jpg" alt="3D Printed Mask, Resin" loading="lazy">
+        <div class="caption">3D Printed Mask, Resin</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Woodwork -->
+  <div class="craft-category">
+    <p class="craft-category-label fade-in">Woodwork</p>
+    <div class="craft-masonry">
+      <div class="masonry-item fade-in">
+        <img src="images/images/candle_holder_in_walnut.jpg" alt="Candle Holder, Turned Walnut" loading="lazy">
+        <div class="caption">Candle Holder, Turned Walnut</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filigree Research -->
+  <div class="craft-category">
+    <p class="craft-category-label fade-in">Filigree Research</p>
+    <div class="craft-masonry">
+      <div class="masonry-item fade-in">
+        <img src="images/images/filigree_wax_model.jpg" alt="Filigree Wax Models" loading="lazy">
+        <div class="caption">Filigree Wax Models</div>
+      </div>
+      <div class="masonry-item fade-in">
+        <img src="images/images/Filigree_research_set_up.jpg" alt="Filigree Research, Studio Set-up" loading="lazy">
+        <div class="caption">Filigree Research, Studio Set-up</div>
+      </div>
+    </div>
+  </div>
+
 </section>
 
 <!-- FOOTER -->
-<footer id="contact">
+<footer id="contact" data-bg="#62554a">
   <div class="footer-name">Xinyu Han</div>
   <div class="footer-links">
     <a href="mailto:hxyhxyhxy529@gmail.com">Email</a>
     <a href="https://www.instagram.com/fanestra_6/" target="_blank">Instagram</a>
     <a href="tel:+16478972905">647-897-2905</a>
   </div>
-  <p class="footer-note">MMSt Candidate, University of Toronto · BDes Material Art & Design, OCAD University</p>
+  <p class="footer-note">MMSt Candidate, University of Toronto &middot; BDes Material Art &amp; Design, OCAD University</p>
 </footer>
 
 <script>
-// ── Fade-in observer for general elements ──
+// ── Color utilities ──
+function hexToRgb(hex) {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return [r, g, b];
+}
+
+function rgbToHex(r, g, b) {
+  return '#' + [r, g, b].map(v => Math.round(v).toString(16).padStart(2, '0')).join('');
+}
+
+function lerpColor(c1, c2, t) {
+  return [
+    c1[0] + (c2[0] - c1[0]) * t,
+    c1[1] + (c2[1] - c1[1]) * t,
+    c1[2] + (c2[2] - c1[2]) * t
+  ];
+}
+
+// ── Build color stops from data-bg sections ──
+const colorSections = [];
+document.querySelectorAll('[data-bg]').forEach(el => {
+  colorSections.push({
+    el: el,
+    color: hexToRgb(el.getAttribute('data-bg'))
+  });
+});
+
+// ── Determine if a color is dark (for nav text contrast) ──
+function luminance(r, g, b) {
+  return (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+}
+
+// ── Fade-in observer ──
 const fadeObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -723,7 +862,7 @@ const fadeObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
 
-// ── Gallery reveal observer (fade + scale) with staggered delays ──
+// ── Gallery reveal observer (fade + scale) ──
 const galleryObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -733,38 +872,76 @@ const galleryObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
 
-document.querySelectorAll('.masonry-item, .jewellery-item').forEach((el, i) => {
+document.querySelectorAll('.masonry-item').forEach((el, i) => {
   el.classList.add('gallery-reveal');
   el.style.transitionDelay = (i % 3) * 0.12 + 's';
   galleryObserver.observe(el);
 });
 
-// ── Nav background on scroll ──
+// ── Scroll handler: parallax + background color + nav ──
 const nav = document.getElementById('nav');
-
-// ── Parallax on scroll ──
 const heroContent = document.querySelector('.hero-parallax-content');
-const galleryImages = document.querySelectorAll('.masonry-item img, .jewellery-item img');
+const galleryImages = document.querySelectorAll('.masonry-item img');
+const navLogo = nav.querySelector('.logo');
+const navLinks = nav.querySelectorAll('.nav-links a');
 
 let ticking = false;
 window.addEventListener('scroll', () => {
   if (!ticking) {
     requestAnimationFrame(() => {
       const scrollY = window.scrollY;
+      const viewH = window.innerHeight;
 
-      // Nav
-      nav.classList.toggle('scrolled', scrollY > 60);
+      // ── Background color interpolation ──
+      let bgColor = colorSections[0].color;
+      for (let i = 0; i < colorSections.length - 1; i++) {
+        const curr = colorSections[i];
+        const next = colorSections[i + 1];
+        const currTop = curr.el.offsetTop;
+        const nextTop = next.el.offsetTop;
+        const scrollMid = scrollY + viewH * 0.4;
 
-      // Hero parallax: content moves up slower than scroll
+        if (scrollMid >= currTop && scrollMid < nextTop) {
+          const t = Math.min(Math.max((scrollMid - currTop) / (nextTop - currTop), 0), 1);
+          // Ease function for smoother transition
+          const eased = t * t * (3 - 2 * t);
+          bgColor = lerpColor(curr.color, next.color, eased);
+          break;
+        } else if (scrollMid >= nextTop && i === colorSections.length - 2) {
+          bgColor = next.color;
+        }
+      }
+
+      const hex = rgbToHex(bgColor[0], bgColor[1], bgColor[2]);
+      document.body.style.background = hex;
+
+      // Nav styling
+      const lum = luminance(bgColor[0], bgColor[1], bgColor[2]);
+      const isDark = lum < 0.55;
+
+      if (scrollY > 60) {
+        nav.classList.add('scrolled');
+        nav.style.background = 'rgba(' + Math.round(bgColor[0]) + ',' + Math.round(bgColor[1]) + ',' + Math.round(bgColor[2]) + ',0.85)';
+      } else {
+        nav.classList.remove('scrolled');
+        nav.style.background = 'transparent';
+      }
+
+      // Nav text color adapts to background
+      const navTextColor = isDark ? '#f3eee4' : '#5C4A3A';
+      const navLinkColor = isDark ? 'rgba(243,238,228,0.7)' : '#8B7355';
+      navLogo.style.color = navTextColor;
+      navLinks.forEach(a => { a.style.color = navLinkColor; });
+
+      // ── Hero parallax ──
       if (heroContent) {
         heroContent.style.transform = 'translateY(' + scrollY * 0.35 + 'px)';
         heroContent.style.opacity = Math.max(1 - scrollY / 600, 0);
       }
 
-      // Gallery image parallax: subtle vertical shift based on scroll position
+      // ── Gallery image parallax ──
       galleryImages.forEach(img => {
         const rect = img.getBoundingClientRect();
-        const viewH = window.innerHeight;
         if (rect.top < viewH && rect.bottom > 0) {
           const progress = (viewH - rect.top) / (viewH + rect.height);
           const shift = (progress - 0.5) * 30;
@@ -777,6 +954,9 @@ window.addEventListener('scroll', () => {
     ticking = true;
   }
 });
+
+// Trigger once on load
+window.dispatchEvent(new Event('scroll'));
 </script>
 
 </body>
