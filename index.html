@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Xinyu Han — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F0EB;
+    --cream-dark: #EDE6DD;
+    --brown: #5C4A3A;
+    --brown-light: #8B7355;
+    --gold: #C4A87C;
+    --gold-muted: #D4C4A8;
+    --text: #3A3028;
+    --text-light: #8B7D6B;
+    --white: #FDFBF8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: var(--gold-muted);
+    color: var(--brown);
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.4s, backdrop-filter 0.4s;
+  }
+
+  nav.scrolled {
+    background: rgba(245, 240, 235, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  nav .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    color: var(--brown);
+    text-transform: uppercase;
+  }
+
+  nav .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  nav .nav-links a {
+    text-decoration: none;
+    color: var(--brown-light);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 400;
+    transition: color 0.3s;
+  }
+
+  nav .nav-links a:hover { color: var(--brown); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 2rem;
+    position: relative;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 80px;
+    background: linear-gradient(to bottom, transparent, var(--gold-muted));
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    color: var(--brown);
+    text-transform: uppercase;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+  }
+
+  .hero .subtitle {
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+  }
+
+  .hero .tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--brown-light);
+    max-width: 500px;
+    line-height: 1.7;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 6rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 0.8rem;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 300;
+    color: var(--brown);
+    margin-bottom: 2rem;
+    line-height: 1.2;
+  }
+
+  .divider {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 3rem 0;
+  }
+
+  /* ── ABOUT ── */
+  .about-text {
+    max-width: 680px;
+    font-size: 1rem;
+    line-height: 1.85;
+    color: var(--text);
+    font-weight: 300;
+  }
+
+  .about-text p + p { margin-top: 1.2rem; }
+
+  .about-contact {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .about-contact a {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--brown-light);
+    text-decoration: none;
+    border-bottom: 1px solid var(--gold-muted);
+    padding-bottom: 2px;
+    transition: color 0.3s, border-color 0.3s;
+  }
+
+  .about-contact a:hover {
+    color: var(--brown);
+    border-color: var(--gold);
+  }
+
+  /* ── COURSEWORK ── */
+  .work-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  .work-item {
+    border-top: 1px solid var(--cream-dark);
+    padding-top: 2rem;
+  }
+
+  .work-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .work-item-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 0.3rem;
+  }
+
+  .work-item-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--brown);
+  }
+
+  .work-item-link {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--brown-light);
+    text-decoration: none;
+    border-bottom: 1px solid var(--gold-muted);
+    padding-bottom: 2px;
+    transition: all 0.3s;
+    white-space: nowrap;
+  }
+
+  .work-item-link:hover {
+    color: var(--brown);
+    border-color: var(--gold);
+  }
+
+  .work-item-link::after {
+    content: ' ↗';
+    font-size: 0.65rem;
+  }
+
+  .embed-container {
+    width: 100%;
+    max-width: 900px;
+    margin-top: 0.5rem;
+    background: var(--white);
+    border: 1px solid var(--cream-dark);
+    overflow: hidden;
+  }
+
+  .embed-container iframe {
+    width: 100%;
+    height: 500px;
+    border: none;
+    display: block;
+  }
+
+  .work-item-description {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    font-style: italic;
+  }
+
+  /* ── GALLERY ── */
+  .gallery-section {
+    padding: 6rem 0;
+    max-width: 100%;
+  }
+
+  .gallery-section .section-label,
+  .gallery-section .section-title {
+    padding: 0 3rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .gallery-section .section-title {
+    margin-bottom: 3rem;
+  }
+
+  .gallery-category {
+    margin-bottom: 4rem;
+  }
+
+  .gallery-category-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    padding: 0 3rem;
+    max-width: 1200px;
+    margin: 0 auto 1.5rem;
+  }
+
+  .masonry {
+    columns: 3;
+    column-gap: 1rem;
+    padding: 0 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .masonry-item {
+    break-inside: avoid;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .masonry-item img {
+    width: 100%;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.25, 0, 0.25, 1);
+  }
+
+  .masonry-item:hover img {
+    transform: scale(1.03);
+  }
+
+  .masonry-item .caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem 1rem 1rem;
+    background: linear-gradient(transparent, rgba(58, 48, 40, 0.7));
+    color: var(--white);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .masonry-item:hover .caption { opacity: 1; }
+
+  /* ── JEWELLERY GRID ── */
+  .jewellery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    padding: 0 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .jewellery-item {
+    background: var(--white);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .jewellery-item img {
+    width: 100%;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.25, 0, 0.25, 1);
+  }
+
+  .jewellery-item:hover img {
+    transform: scale(1.03);
+  }
+
+  .jewellery-item .caption {
+    padding: 0.8rem 1rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    color: var(--text-light);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 4rem 3rem;
+    text-align: center;
+    border-top: 1px solid var(--cream-dark);
+  }
+
+  footer .footer-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--brown);
+    margin-bottom: 1rem;
+  }
+
+  footer .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  footer .footer-links a {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  footer .footer-links a:hover { color: var(--brown); }
+
+  footer .footer-note {
+    margin-top: 2rem;
+    font-size: 0.7rem;
+    color: var(--text-light);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── ANIMATIONS ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.25, 0, 0.25, 1),
+                transform 0.8s cubic-bezier(0.25, 0, 0.25, 1);
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .fade-in-delay-1 { transition-delay: 0.1s; }
+  .fade-in-delay-2 { transition-delay: 0.2s; }
+  .fade-in-delay-3 { transition-delay: 0.3s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    nav .nav-links { gap: 1.5rem; }
+    nav .nav-links a { font-size: 0.65rem; }
+    section { padding: 4rem 1.5rem; }
+    .masonry { columns: 2; padding: 0 1.5rem; }
+    .jewellery-grid { padding: 0 1.5rem; }
+    .gallery-category-label { padding: 0 1.5rem; }
+    .gallery-section .section-label,
+    .gallery-section .section-title { padding: 0 1.5rem; }
+    .embed-container iframe { height: 350px; }
+    .work-item-header { flex-direction: column; }
+  }
+
+  @media (max-width: 480px) {
+    .masonry { columns: 1; }
+    nav .nav-links { gap: 1rem; }
+    .hero h1 { letter-spacing: 0.06em; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="logo">Xinyu Han</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#coursework">Work</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="subtitle fade-in">Museum Studies · Material Art & Design</p>
+  <h1 class="fade-in fade-in-delay-1">Xinyu Han</h1>
+  <p class="tagline fade-in fade-in-delay-2">From the jeweller's bench to the museum archive, bridging material craft with cultural stewardship.</p>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <p class="section-label fade-in">About</p>
+  <h2 class="section-title fade-in">Maker, Researcher, Curator</h2>
+  <div class="about-text fade-in">
+    <p>I am a Master of Museum Studies candidate at the University of Toronto, with a Bachelor of Design in Material Art & Design from OCAD University and a Jewellery Methods Diploma from George Brown College. My practice sits at the intersection of hands-on craftsmanship and institutional research.</p>
+    <p>With training in jewellery fabrication, gemology, film photography, ceramics, and metalworking, I bring a maker's sensibility to collections management, curatorial work, and digital museum practice. This portfolio presents selected coursework and creative work from my studies in The Digital Museum (MSL1228H), exploring how museums can harness digital tools and strategies to engage broader audiences, preserve cultural heritage, and rethink institutional narratives.</p>
+  </div>
+  <div class="about-contact fade-in">
+    <a href="mailto:hxyhxyhxy529@gmail.com">hxyhxyhxy529@gmail.com</a>
+    <a href="https://www.instagram.com/fanestra_6/" target="_blank">@fanestra_6</a>
+  </div>
+</section>
+
+<!-- COURSEWORK -->
+<section id="coursework">
+  <p class="section-label fade-in">MSL1228H · The Digital Museum</p>
+  <h2 class="section-title fade-in">Coursework</h2>
+
+  <div class="work-grid">
+
+    <!-- PPT 1 -->
+    <div class="work-item fade-in">
+      <div class="work-item-header">
+        <div>
+          <p class="work-item-label">Digital Production Exercise</p>
+          <h3 class="work-item-title">3.02 Digital Production Exercise</h3>
+        </div>
+        <a class="work-item-link" href="https://utoronto-my.sharepoint.com/:p:/g/personal/xinyuhan_han_mail_utoronto_ca/IQDatvJLD8IoQ5Pl_MU9lqPDAeYJ_45ayH6egv7YXep8pns?e=1Pfl6A" target="_blank">View Full Presentation</a>
+      </div>
+      <div class="embed-container">
+        <iframe src="https://utoronto-my.sharepoint.com/personal/xinyuhan_han_mail_utoronto_ca/_layouts/15/Doc.aspx?sourcedoc={4bf2b6da-c20f-4328-93e5-fcc53d96a3c3}&amp;action=embedview&amp;wdAr=1.3333333333333333" title="3.02 Digital Production Exercise"></iframe>
+      </div>
+    </div>
+
+    <!-- PPT 2 -->
+    <div class="work-item fade-in">
+      <div class="work-item-header">
+        <div>
+          <p class="work-item-label">Digital Production Exercise</p>
+          <h3 class="work-item-title">3.03 Digital Production Exercise</h3>
+        </div>
+        <a class="work-item-link" href="https://utoronto-my.sharepoint.com/:p:/g/personal/xinyuhan_han_mail_utoronto_ca/IQD59jPKIUPSSJ9LNTYw0lw5AUXx06l83x-RH4jbxVnm4uU" target="_blank">View Full Presentation</a>
+      </div>
+      <div class="embed-container">
+        <iframe src="https://utoronto-my.sharepoint.com/personal/xinyuhan_han_mail_utoronto_ca/_layouts/15/Doc.aspx?sourcedoc={ca33f6f9-4321-48d2-9f4b-353630d25c39}&amp;action=embedview&amp;wdAr=1.7777777777777777" title="3.03 Digital Production Exercise"></iframe>
+      </div>
+    </div>
+
+    <!-- DOC 1 -->
+    <div class="work-item fade-in">
+      <div class="work-item-header">
+        <div>
+          <p class="work-item-label">3.04 Reading Response</p>
+          <h3 class="work-item-title">Evaluating Integrated Digital Strategies</h3>
+        </div>
+        <a class="work-item-link" href="https://utoronto-my.sharepoint.com/:w:/g/personal/xinyuhan_han_mail_utoronto_ca/IQBTzP6ztEIcQo0NfsqSUtUVAWModPt1ucuIdYgNIxdMplQ?e=jMTjOa" target="_blank">3.04 Reading Response_Xinyu Han</a>
+      </div>
+      <div class="embed-container">
+        <iframe src="https://utoronto-my.sharepoint.com/personal/xinyuhan_han_mail_utoronto_ca/_layouts/15/Doc.aspx?sourcedoc={b3fecc53-42b4-421c-8d0d-7eca9252d515}&amp;action=embedview" title="3.04 Reading Response"></iframe>
+      </div>
+    </div>
+
+    <!-- DOC 2 -->
+    <div class="work-item fade-in">
+      <div class="work-item-header">
+        <div>
+          <p class="work-item-label">3.05 Reading Response</p>
+          <h3 class="work-item-title">Project Management Interview Response</h3>
+        </div>
+        <a class="work-item-link" href="https://utoronto-my.sharepoint.com/:w:/g/personal/xinyuhan_han_mail_utoronto_ca/IQAQL7Yy1wzwRpX3pp9W-ezcASPWIqpYXjL-MoCad94a6bM?e=UNMrqi" target="_blank">3.05 Reading Response_Xinyu Han</a>
+      </div>
+      <div class="embed-container">
+        <iframe src="https://utoronto-my.sharepoint.com/personal/xinyuhan_han_mail_utoronto_ca/_layouts/15/Doc.aspx?sourcedoc={32b62f10-0cd7-46f0-95f7-a69f56f9ecdc}&amp;action=embedview" title="3.05 Reading Response"></iframe>
+      </div>
+    </div>
+
+    <!-- DOC 3 -->
+    <div class="work-item fade-in">
+      <div class="work-item-header">
+        <div>
+          <p class="work-item-label">3.06 Reading Response</p>
+          <h3 class="work-item-title">Digital Restoration vs. Digital Power</h3>
+        </div>
+        <a class="work-item-link" href="https://utoronto-my.sharepoint.com/:w:/g/personal/xinyuhan_han_mail_utoronto_ca/IQAhbscUMMyLSJhntoa_Jb9RAfTQxSFeU8Pq5ZuybhcucfA?e=IkcrvB" target="_blank">3.06 Reading Response_Xinyu Han</a>
+      </div>
+      <div class="embed-container">
+        <iframe src="https://utoronto-my.sharepoint.com/personal/xinyuhan_han_mail_utoronto_ca/_layouts/15/Doc.aspx?sourcedoc={14c76e21-cc30-488b-9867-b686bf25bf51}&amp;action=embedview" title="3.06 Reading Response"></iframe>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery" class="gallery-section">
+  <p class="section-label fade-in">Selected Work</p>
+  <h2 class="section-title fade-in">Gallery</h2>
+
+  <!-- Photography -->
+  <div class="gallery-category">
+    <p class="gallery-category-label fade-in">Film Photography · Nikon F3 HP</p>
+    <div class="masonry">
+      <div class="masonry-item fade-in">
+        <img src="images/000179910035.jpg" alt="Temple of Heaven, Beijing" loading="lazy">
+        <div class="caption">Temple of Heaven, Beijing</div>
+      </div>
+      <div class="masonry-item fade-in">
+        <img src="images/000179910020.jpg" alt="Forbidden City, Beijing" loading="lazy">
+        <div class="caption">Forbidden City, Beijing</div>
+      </div>
+      <div class="masonry-item fade-in">
+        <img src="images/000046980019.jpg" alt="Kensington Market, Toronto" loading="lazy">
+        <div class="caption">Kensington Market, Toronto</div>
+      </div>
+      <div class="masonry-item fade-in">
+        <img src="images/000179920028.jpg" alt="Toronto Reference Library" loading="lazy">
+        <div class="caption">Toronto Reference Library</div>
+      </div>
+      <div class="masonry-item fade-in">
+        <img src="images/000165560022.jpg" alt="University of Toronto Scarborough" loading="lazy">
+        <div class="caption">University of Toronto Scarborough</div>
+      </div>
+      <div class="masonry-item fade-in">
+        <img src="images/000179930038.jpg" alt="Toronto, Winter" loading="lazy">
+        <div class="caption">Toronto, Winter</div>
+      </div>
+      <div class="masonry-item fade-in">
+        <img src="images/000043490018.jpg" alt="Billy Bishop Airport Lakefront, Toronto" loading="lazy">
+        <div class="caption">Billy Bishop Airport Lakefront, Toronto</div>
+      </div>
+      <div class="masonry-item fade-in">
+        <img src="images/000058620019.jpg" alt="Art Institute of Chicago" loading="lazy">
+        <div class="caption">Art Institute of Chicago</div>
+      </div>
+      <div class="masonry-item fade-in">
+        <img src="images/000055010014.jpg" alt="Washington DC Metro" loading="lazy">
+        <div class="caption">Washington DC Metro</div>
+      </div>
+      <div class="masonry-item fade-in">
+        <img src="images/012.jpg" alt="Boston" loading="lazy">
+        <div class="caption">Boston</div>
+      </div>
+      <div class="masonry-item fade-in">
+        <img src="images/035.jpg" alt="Boston" loading="lazy">
+        <div class="caption">Boston</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Jewellery & Design -->
+  <div class="gallery-category" style="margin-top: 4rem;">
+    <p class="gallery-category-label fade-in">Jewellery Design & Fabrication</p>
+    <div class="jewellery-grid">
+      <div class="jewellery-item fade-in">
+        <img src="images/33f76e71fb7f5028592bdc41054fa00.jpg" alt="Dragon Necklace Design" loading="lazy">
+        <div class="caption">Necklace Design, Watercolour on Kraft</div>
+      </div>
+      <div class="jewellery-item fade-in">
+        <img src="images/img_9683.jpg" alt="Cartier Ring Study" loading="lazy">
+        <div class="caption">Cartier Ring Study, Gouache on Black Paper</div>
+      </div>
+      <div class="jewellery-item fade-in">
+        <img src="images/ring_green_blue.jpg" alt="Deconstructivist Ring" loading="lazy">
+        <div class="caption">Ring after Frank Gehry, Deconstructivism · Rhino 3D</div>
+      </div>
+      <div class="jewellery-item fade-in">
+        <img src="images/rhino_pendant.jpg" alt="Chinese Window Lattice Pendant Collection" loading="lazy">
+        <div class="caption">Pendant/Brooch Collection, Chinese Architectural Lattice · Rhino 3D</div>
+      </div>
+      <div class="jewellery-item fade-in">
+        <img src="images/screenshot.jpg" alt="Pendant Rhino Viewport" loading="lazy">
+        <div class="caption">Lattice Pendant, Rhino 3D Viewport</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="footer-name">Xinyu Han</div>
+  <div class="footer-links">
+    <a href="mailto:hxyhxyhxy529@gmail.com">Email</a>
+    <a href="https://www.instagram.com/fanestra_6/" target="_blank">Instagram</a>
+    <a href="tel:+16478972905">647-897-2905</a>
+  </div>
+  <p class="footer-note">MMSt Candidate, University of Toronto · BDes Material Art & Design, OCAD University</p>
+</footer>
+
+<script>
+// Scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Nav background on scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+</script>
+
+</body>
+</html>
