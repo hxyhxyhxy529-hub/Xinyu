@@ -473,6 +473,98 @@
     opacity: 0.6;
   }
 
+  /* ── DARK BACKGROUND ADAPTIVE TEXT ── */
+  body.dark-bg .section-label,
+  body.dark-bg .gallery-category-label,
+  body.dark-bg .craft-category-label {
+    color: rgba(243, 238, 228, 0.6);
+    transition: color 0.6s ease;
+  }
+
+  body.dark-bg .section-title {
+    color: #f3eee4;
+    transition: color 0.6s ease;
+  }
+
+  body.dark-bg .craft-masonry .masonry-item .caption {
+    color: rgba(243, 238, 228, 0.7);
+    transition: color 0.6s ease;
+  }
+
+  body.dark-bg .about-text,
+  body.dark-bg .about-text p {
+    color: rgba(243, 238, 228, 0.85);
+    transition: color 0.6s ease;
+  }
+
+  body.dark-bg .about-contact a {
+    color: rgba(243, 238, 228, 0.7);
+    border-color: rgba(243, 238, 228, 0.3);
+    transition: color 0.6s ease, border-color 0.6s ease;
+  }
+
+  body.dark-bg .about-contact a:hover {
+    color: #f3eee4;
+    border-color: rgba(243, 238, 228, 0.6);
+  }
+
+  body.dark-bg .work-item {
+    border-top-color: rgba(243, 238, 228, 0.15);
+  }
+
+  body.dark-bg .work-item-label {
+    color: rgba(243, 238, 228, 0.5);
+    transition: color 0.6s ease;
+  }
+
+  body.dark-bg .work-item-title {
+    color: #f3eee4;
+    transition: color 0.6s ease;
+  }
+
+  body.dark-bg .work-item-link {
+    color: rgba(243, 238, 228, 0.7);
+    border-color: rgba(243, 238, 228, 0.3);
+    transition: color 0.6s ease, border-color 0.6s ease;
+  }
+
+  body.dark-bg .work-item-link:hover {
+    color: #f3eee4;
+    border-color: rgba(243, 238, 228, 0.6);
+  }
+
+  body.dark-bg .hero h1 {
+    color: #f3eee4;
+    transition: color 0.6s ease;
+  }
+
+  body.dark-bg .hero .subtitle {
+    color: rgba(243, 238, 228, 0.6);
+    transition: color 0.6s ease;
+  }
+
+  body.dark-bg .hero .tagline {
+    color: rgba(243, 238, 228, 0.7);
+    transition: color 0.6s ease;
+  }
+
+  /* Smooth transitions for non-dark state too */
+  .section-label,
+  .section-title,
+  .gallery-category-label,
+  .craft-category-label,
+  .craft-masonry .masonry-item .caption,
+  .about-text,
+  .work-item-label,
+  .work-item-title,
+  .work-item-link,
+  .about-contact a,
+  .hero h1,
+  .hero .subtitle,
+  .hero .tagline {
+    transition: color 0.6s ease;
+  }
+
   /* ── ANIMATIONS ── */
   .fade-in {
     opacity: 0;
@@ -917,7 +1009,7 @@ window.addEventListener('scroll', () => {
 
       // Nav styling
       const lum = luminance(bgColor[0], bgColor[1], bgColor[2]);
-      const isDark = lum < 0.55;
+      const isDark = lum < 0.62;
 
       if (scrollY > 60) {
         nav.classList.add('scrolled');
@@ -932,6 +1024,13 @@ window.addEventListener('scroll', () => {
       const navLinkColor = isDark ? 'rgba(243,238,228,0.7)' : '#8B7355';
       navLogo.style.color = navTextColor;
       navLinks.forEach(a => { a.style.color = navLinkColor; });
+
+      // Toggle dark-bg class on body for section text colors
+      if (isDark) {
+        document.body.classList.add('dark-bg');
+      } else {
+        document.body.classList.remove('dark-bg');
+      }
 
       // ── Hero parallax ──
       if (heroContent) {
