@@ -94,6 +94,12 @@
     text-align: center;
     padding: 6rem 2rem;
     position: relative;
+    overflow: hidden;
+  }
+
+  .hero-parallax-content {
+    will-change: transform;
+    transition: none;
   }
 
   .hero::after {
@@ -332,11 +338,37 @@
   .masonry-item img {
     width: 100%;
     display: block;
-    transition: transform 0.6s cubic-bezier(0.25, 0, 0.25, 1);
+    transition: transform 0.6s cubic-bezier(0.25, 0, 0.25, 1),
+                filter 0.6s cubic-bezier(0.25, 0, 0.25, 1);
+  }
+
+  /* Gallery scroll-in animation: fade + scale */
+  .masonry-item.gallery-reveal {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+    transition: opacity 0.8s cubic-bezier(0.25, 0, 0.25, 1),
+                transform 0.8s cubic-bezier(0.25, 0, 0.25, 1);
+  }
+
+  .masonry-item.gallery-reveal.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .jewellery-item.gallery-reveal {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+    transition: opacity 0.8s cubic-bezier(0.25, 0, 0.25, 1),
+                transform 0.8s cubic-bezier(0.25, 0, 0.25, 1);
+  }
+
+  .jewellery-item.gallery-reveal.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 
   .masonry-item:hover img {
-    transform: scale(1.03);
+    filter: brightness(1.05);
   }
 
   .masonry-item .caption {
@@ -378,7 +410,7 @@
   }
 
   .jewellery-item:hover img {
-    transform: scale(1.03);
+    filter: brightness(1.05);
   }
 
   .jewellery-item .caption {
@@ -483,9 +515,11 @@
 
 <!-- HERO -->
 <section class="hero">
-  <p class="subtitle fade-in">Museum Studies · Material Art & Design</p>
-  <h1 class="fade-in fade-in-delay-1">Xinyu Han</h1>
-  <p class="tagline fade-in fade-in-delay-2">From the jeweller's bench to the museum archive, bridging material craft with cultural stewardship.</p>
+  <div class="hero-parallax-content">
+    <p class="subtitle fade-in">Museum Studies · Material Art & Design</p>
+    <h1 class="fade-in fade-in-delay-1">Xinyu Han</h1>
+    <p class="tagline fade-in fade-in-delay-2">From the jeweller's bench to the museum archive, bridging material craft with cultural stewardship.</p>
+  </div>
 </section>
 
 <!-- ABOUT -->
@@ -678,8 +712,8 @@
 </footer>
 
 <script>
-// Scroll animations
-const observer = new IntersectionObserver((entries) => {
+// ── Fade-in observer for general elements ──
+const fadeObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
@@ -687,12 +721,61 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
 
-// Nav background on scroll
+// ── Gallery reveal observer (fade + scale) with staggered delays ──
+const galleryObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      galleryObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+
+document.querySelectorAll('.masonry-item, .jewellery-item').forEach((el, i) => {
+  el.classList.add('gallery-reveal');
+  el.style.transitionDelay = (i % 3) * 0.12 + 's';
+  galleryObserver.observe(el);
+});
+
+// ── Nav background on scroll ──
 const nav = document.getElementById('nav');
+
+// ── Parallax on scroll ──
+const heroContent = document.querySelector('.hero-parallax-content');
+const galleryImages = document.querySelectorAll('.masonry-item img, .jewellery-item img');
+
+let ticking = false;
 window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 60);
+  if (!ticking) {
+    requestAnimationFrame(() => {
+      const scrollY = window.scrollY;
+
+      // Nav
+      nav.classList.toggle('scrolled', scrollY > 60);
+
+      // Hero parallax: content moves up slower than scroll
+      if (heroContent) {
+        heroContent.style.transform = 'translateY(' + scrollY * 0.35 + 'px)';
+        heroContent.style.opacity = Math.max(1 - scrollY / 600, 0);
+      }
+
+      // Gallery image parallax: subtle vertical shift based on scroll position
+      galleryImages.forEach(img => {
+        const rect = img.getBoundingClientRect();
+        const viewH = window.innerHeight;
+        if (rect.top < viewH && rect.bottom > 0) {
+          const progress = (viewH - rect.top) / (viewH + rect.height);
+          const shift = (progress - 0.5) * 30;
+          img.style.transform = 'translateY(' + shift + 'px)';
+        }
+      });
+
+      ticking = false;
+    });
+    ticking = true;
+  }
 });
 </script>
 
